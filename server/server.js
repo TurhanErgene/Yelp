@@ -1,27 +1,31 @@
 require("dotenv").config();
 
 const express = require("express");
-const db = require("./db")
+const db = require("./db");
 
 const app = express();
-
 
 app.use(express.json());
 
 // get all restaurants
 app.get("/api/v1/restaurants", async (req, res) => {
+  try {
+    const results = await db.query("select * from restaurants;");  
+    console.log(results);
 
-  const results = await db.query("select * from restaurants;")
+    res.status(200).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        restaurants: results.rows,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 
-  console.log(results);
 
-  console.log("route handler");
-  res.status(200).json({
-    status: "success",
-    data: {
-      restaurant: ["McDondalds", "Subway", "Dominos", "Köpenhamns Falafel"],
-    },
-  });
+  
 });
 
 //get a restaurant
@@ -31,10 +35,10 @@ app.get("/api/v1/restaurants/:id", (req, res) => {
   res.status(200).json({
     status: "success",
     data: {
-      restaurant: ["McDondalds"]
-    }
-  })
-})
+      restaurant: ["McDondalds"],
+    },
+  });
+});
 
 // create a restaurant
 app.post("/api/v1/restaurants", (req, res) => {
@@ -47,7 +51,7 @@ app.post("/api/v1/restaurants", (req, res) => {
       restaurant: ["Bar italia"],
     },
   });
-})
+});
 
 //update restaurants
 app.put("/api/v1/restaurants/:id", (req, res) => {
@@ -60,15 +64,14 @@ app.put("/api/v1/restaurants/:id", (req, res) => {
       restaurant: ["Köpenhamns Falafel"],
     },
   });
-})
+});
 
 //delete a restaurant
 app.delete("/api/v1/restaurants/:id", (req, res) => {
-
   res.status(204).json({
     status: "success",
-  })
-})
+  });
+});
 
 const port = process.env.PORT || 4000;
 
