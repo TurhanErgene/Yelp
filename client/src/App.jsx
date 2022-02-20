@@ -6,7 +6,7 @@ import UpdatePage from "./routes/UpdatePage";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
