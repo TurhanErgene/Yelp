@@ -1,10 +1,12 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const db = require("./db");
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 
 // get all restaurants
@@ -28,8 +30,6 @@ app.get("/api/v1/restaurants", async (req, res) => {
 //get a restaurant
 app.get("/api/v1/restaurants/:id", async (req, res) => {
   try {
-    console.log("req.params.id: ", req.params.id);
-
     const results = await db.query("select * from restaurants where id = $1", [
       req.params.id,
     ]);
@@ -50,8 +50,6 @@ app.get("/api/v1/restaurants/:id", async (req, res) => {
 
 // create a restaurant
 app.post("/api/v1/restaurants", async (req, res) => {
-  console.log("req.body: ", req.body);
-
   try {
     const results = await db.query(
       "INSERT INTO restaurants (name, location, price_range) values ($1, $2, $3) returning *",
