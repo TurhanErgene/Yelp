@@ -3,16 +3,13 @@ import RestaurantFinder from "../apis/RestaurantFinder";
 import { RestaurantContext } from "../context/RestaurantsContext";
 
 const RestaurantList = (props) => {
-
-   const {restaurants, setRestaurants} = useContext(RestaurantContext)
+  const { restaurants, setRestaurants } = useContext(RestaurantContext);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get("/");
 
-        setRestaurants(response.data.data.restaurants)
-
-
+        setRestaurants(response.data.data.restaurants);
       } catch (error) {
         console.log(error);
       }
@@ -25,7 +22,7 @@ const RestaurantList = (props) => {
     <div className="mx-auto">
       <table className="table table-hover">
         <thead>
-          <tr className="bg-primary">
+          <tr className="bg-primary text-white">
             <th scope="col">Restaurant</th>
             <th scope="col">Location</th>
             <th scope="col">Price Range</th>
@@ -35,30 +32,23 @@ const RestaurantList = (props) => {
           </tr>
         </thead>
         <tbody className="table-secondary">
-          <tr>
-            <td>McDonalds</td>
-            <td>Malmö</td>
-            <td>$$</td>
-            <td>Ratings</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td>Subway</td>
-            <td>Lund</td>
-            <td>$$$</td>
-            <td>Ratings</td>
-            <td>
-              <button className="btn btn-warning">Update</button>
-            </td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
+          {restaurants &&
+            restaurants.map((restaurant) => {
+              return (
+                <tr key={restaurant.id}>
+                  <td>{restaurant.name}</td>
+                  <td>{restaurant.location}</td>
+                  <td>{"$".repeat(restaurant.price_range)}</td>
+                  <td>reviews</td>
+                  <td>
+                    <button className="btn btn-warning">Update</button>
+                  </td>
+                  <td>
+                    <button className="btn btn-danger">Delete</button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
     </div>
