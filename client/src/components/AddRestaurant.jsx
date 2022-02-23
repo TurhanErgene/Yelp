@@ -1,11 +1,26 @@
 import React, { useState } from 'react'
-
+import RestaurantFinder from '../apis/RestaurantFinder'
 const AddRestaurant = () => {
 
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
-  const [price_range, setPriceRange] = useState("Price Range")
+  const [priceRange, setPriceRange] = useState("Price Range")
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await RestaurantFinder.post("/", {
+        name,
+        location,
+        price_range: priceRange,
+      })
+      console.log(response);
+
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="mb-4 d-flex justify-content-around">
@@ -18,7 +33,7 @@ const AddRestaurant = () => {
             <input value={location} onChange={e => setLocation(e.target.value)} type="text" className="form-control" placeholder="Location"/>
           </div>
           <div className="col mx-2">
-            <select value={price_range} onChange={e => setName(e.target.value)} className="custom-select my-1 mr-sm-2"> 
+            <select value={priceRange} onChange={e => setPriceRange(e.target.value)} className="custom-select my-1 mr-sm-2"> 
               <option disabled>Price Range</option>
               <option value="1">$</option>
               <option value="2">$$</option>
@@ -27,7 +42,7 @@ const AddRestaurant = () => {
               <option value="5">$$$$$</option>
             </select>
           </div>
-          <button className="btn btn-primary mx-2">Add</button>
+          <button onClick={handleSubmit} type="submit" className="btn btn-primary mx-2">Add</button>
         </div>
       </form>
     </div>
