@@ -1,18 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const AddRestaurant = () => {
+
+  const [name, setName] = useState("")
+  const [location, setLocation] = useState("")
+  const [price_range, setPriceRange] = useState("Price Range")
+
+
   return (
     <div className="mb-4 d-flex justify-content-around">
       <form action="">
         <div className="d-flex justify-content-around my-3">
           <div className="col-md-4 mx-3">
-            <input type="text" className="form-control" placeholder="Name"/>
+            <input value={name} onChange={e => setName(e.target.value)} className="form-control" placeholder="Name"/>
           </div>
           <div className="col-md-4 mx-3">
-            <input type="text" className="form-control" placeholder="Location"/>
+            <input value={location} onChange={e => setLocation(e.target.value)} type="text" className="form-control" placeholder="Location"/>
           </div>
           <div className="col mx-2">
-            <select className="custom-select my-1 mr-sm-2"> 
+            <select value={price_range} onChange={e => setName(e.target.value)} className="custom-select my-1 mr-sm-2"> 
               <option disabled>Price Range</option>
               <option value="1">$</option>
               <option value="2">$$</option>
