@@ -38,8 +38,8 @@ const RestaurantList = (props) => {
 
   const handleUpdate = async (id) => {
     try {
-      navigate(`/restaurants/${id}/update`);
-      
+      navigate(`/restaurant/${id}/update`);
+
     } catch (error) {
       console.log(error);
     }
