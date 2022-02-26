@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react";
 import RestaurantFinder from "../apis/RestaurantFinder";
-import { RestaurantContext } from "../context/RestaurantsContext";
+import { RestaurantsContext } from "../context/RestaurantsContext";
 import { useNavigate } from "react-router-dom";
 
 const RestaurantList = (props) => {
-  const { restaurants, setRestaurants } = useContext(RestaurantContext);
+  const { restaurants, setRestaurants } = useContext(RestaurantsContext);
   let navigate = useNavigate();
 
   useEffect(() => {
