@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from '../apis/RestaurantFinder'
+import StarRating from "../components/StarRating";
 
 
 const RestaurantDetailPage = () => {
@@ -22,7 +23,7 @@ const RestaurantDetailPage = () => {
     fetchData();
   },[])
   
-  return <div>{selectedRestaurant && selectedRestaurant.name}</div>;
+  return <div>{selectedRestaurant && <StarRating rating={1.3} />}</div>;
 };
 
 export default RestaurantDetailPage;
