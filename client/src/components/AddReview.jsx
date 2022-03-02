@@ -21,6 +21,11 @@ const AddReview = () => {
             </select>
           </div>
         </div>
+        <div className="form-group">
+          <label htmlFor="Review">Review</label>
+          <textarea id="review" className="form-control"></textarea>
+        </div>
+        <button className="btn btn-primary">Submit</button>
       </form>
     </div>
   )

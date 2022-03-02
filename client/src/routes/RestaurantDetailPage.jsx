@@ -5,6 +5,7 @@ import { RestaurantsContext } from "../context/RestaurantsContext";
 import RestaurantFinder from '../apis/RestaurantFinder'
 import StarRating from "../components/StarRating";
 import Reviews from "../components/Reviews";
+import AddReview from "../components/AddReview";
 
 
 const RestaurantDetailPage = () => {
@@ -28,7 +29,7 @@ const RestaurantDetailPage = () => {
     <>
       <div className="mt-3">
         <Reviews/>
-        
+        <AddReview/>
       </div>
     </>
   )}</div>;
