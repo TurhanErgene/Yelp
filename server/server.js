@@ -26,26 +26,35 @@ app.get("/api/v1/restaurants", async (req, res) => {
   }
 });
 
+
+
 //get a restaurant
 app.get("/api/v1/restaurants/:id", async (req, res) => {
   try {
-    const results = await db.query("select * from restaurants where id = $1", [
+    const restaurant = await db.query("select * from restaurants where id = $1", [
       req.params.id,
     ]);
     //select * from restaurant where id = req.params.id
     //("select $2 from restaurants where id = $1", [req.params.id, "name"])
     console.log("results.row[0]: ", results.rows[0]);
 
+    const reviews = await db.query("select * from reviews where id = $1", [
+      req.params.id,
+    ]);
+
+
     res.status(200).json({
       status: "success",
       data: {
-        restaurant: results.rows[0],
+        restaurant: restaurant.rows[0],
+        reviews: reviews.rows
       },
     });
   } catch (error) {
     console.log(error.message);
   }
 });
+
 
 // create a restaurant
 app.post("/api/v1/restaurants", async (req, res) => {
