@@ -6,7 +6,7 @@ const db = require("./db");
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(express.json());
 
 // get all restaurants
@@ -26,35 +26,34 @@ app.get("/api/v1/restaurants", async (req, res) => {
   }
 });
 
-
-
-//get a restaurant
+//Get a Restaurant
 app.get("/api/v1/restaurants/:id", async (req, res) => {
+  console.log(req.params.id);
+
   try {
-    const restaurant = await db.query("select * from restaurants where id = $1", [
-      req.params.id,
-    ]);
-    //select * from restaurant where id = req.params.id
-    //("select $2 from restaurants where id = $1", [req.params.id, "name"])
-    console.log("results.row[0]: ", results.rows[0]);
+    const restaurant = await db.query(
+      "select * from restaurants where id = $1",
+      [req.params.id]
+    );
+    // select * from restaurants where id = req.params.id
 
-    const reviews = await db.query("select * from reviews where id = $1", [
-      req.params.id,
-    ]);
-
+    const reviews = await db.query(
+      "select * from reviews where restaurant_id = $1",
+      [req.params.id]
+    );
+    console.log(reviews);
 
     res.status(200).json({
-      status: "success",
+      status: "succes",
       data: {
         restaurant: restaurant.rows[0],
-        reviews: reviews.rows
+        reviews: reviews.rows,
       },
     });
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    console.log(err);
   }
 });
-
 
 // create a restaurant
 app.post("/api/v1/restaurants", async (req, res) => {
@@ -98,9 +97,10 @@ app.put("/api/v1/restaurants/:id", async (req, res) => {
 
 //delete a restaurant
 app.delete("/api/v1/restaurants/:id", async (req, res) => {
-
   try {
-    const results = await db.query("DELETE FROM restaurants where id = $1", [req.params.id])
+    const results = await db.query("DELETE FROM restaurants where id = $1", [
+      req.params.id,
+    ]);
 
     res.status(204).json({
       status: "success",
