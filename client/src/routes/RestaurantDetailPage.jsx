@@ -10,7 +10,7 @@ import StarRating from "../components/StarRating";
 const RestaurantDetailPage = () => {
   const { id } = useParams();
   const { selectedRestaurant, setSelectedRestaurant } =
-    useContext(RestaurantsContext);
+    useContext(RestaurantsContext); //returns the current context value, as given by the nearest context provider for the given context.
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +42,6 @@ const RestaurantDetailPage = () => {
           </div>
           <div className="mt-3">
             <Reviews reviews={selectedRestaurant.reviews} />
-            
           </div>
           <AddReview />
         </>
